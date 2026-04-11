@@ -1,133 +1,588 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Capital — Soluções Financeiras para Empresas</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-
+<title>Vaalore — Crédito Empresarial com o Menor Custo do Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Syne:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
---black: #080808;
---deep: #0d0d0d;
---surface: #141414;
---border: #1e1e1e;
---gold: #c9a84c;
---gold-light: #e8c97a;
---gold-dim: rgba(201,168,76,0.12);
---text: #e8e4dc;
---text-muted: #7a7570;
---text-dim: #3a3730;
+,::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#09090b;
+  --ink2:#111113;
+  --surface:#161618;
+  --border:#222226;
+  --border2:#2a2a2f;
+  --gold:#b8962e;
+  --gold2:#d4af5a;
+  --gold3:#f0cc7a;
+  --gold-glow:rgba(184,150,46,0.18);
+  --text:#f0ece4;
+  --muted:#7c7870;
+  --muted2:#4a4844;
+  --green:#22c55e;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:'Syne',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:none;
 }
 
-body {
-background: var(--black);
-color: var(--text);
-font-family: 'DM Mono', monospace;
-overflow-x: hidden;
-}
+/* CURSOR */
+#cur{position:fixed;width:6px;height:6px;background:var(–gold3);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
+#cur2{position:fixed;width:28px;height:28px;border:1px solid rgba(212,175,90,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .14s ease-out,border-color .3s;}
+a:hover~#cur,button:hover~#cur{width:12px;height:12px;}
+
+/* GRAIN */
+body::after{content:’’;position:fixed;inset:0;background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.045’/%3E%3C/svg%3E”);pointer-events:none;z-index:900;opacity:.4;}
 
 /* NAV */
-nav {
-position: fixed;
-top: 0;
-width: 100%;
-display: flex;
-justify-content: space-between;
-padding: 20px 40px;
-z-index: 100;
-background: rgba(0,0,0,0.6);
-backdrop-filter: blur(10px);
-}
-
-.logo {
-font-family: 'Cormorant Garamond', serif;
-color: var(--gold);
-font-size: 20px;
-}
-
-.nav-cta {
-background: var(--gold);
-color: black;
-padding: 10px 20px;
-text-decoration: none;
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 56px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,border-color .4s;border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(9,9,11,.93);backdrop-filter:blur(16px);border-color:var(–border);}
+.logo{font-family:‘Playfair Display’,serif;font-size:24px;font-weight:500;letter-spacing:.04em;color:var(–gold3);}
+.logo sup{font-size:11px;color:var(–muted);font-family:‘Syne’,sans-serif;font-weight:300;letter-spacing:.1em;}
+.nav-right{display:flex;gap:12px;align-items:center;}
+.nav-wa{display:flex;align-items:center;gap:8px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(–green);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:9px 18px;transition:background .3s,transform .2s;}
+.nav-wa:hover{background:rgba(34,197,94,.18);transform:translateY(-1px);}
+.nav-wa svg{width:14px;height:14px;}
+.nav-email{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(–muted);text-decoration:none;padding:9px 18px;border:1px solid var(–border);transition:color .3s,border-color .3s;}
+.nav-email:hover{color:var(–gold2);border-color:var(–gold);}
 
 /* HERO */
-.hero {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-text-align: center;
-padding: 40px;
-}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:140px 56px 100px;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,150,46,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,150,46,.04) 1px,transparent 1px);background-size:72px 72px;animation:gridDrift 24s linear infinite;}
+@keyframes gridDrift{0%{background-position:0 0;}100%{background-position:72px 72px;}}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(184,150,46,.07) 0%,transparent 65%);pointer-events:none;}
+.hero-glow2{position:absolute;bottom:-10%;left:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(184,150,46,.04) 0%,transparent 65%);pointer-events:none;}
 
-h1 {
-font-family: 'Cormorant Garamond', serif;
-font-size: 60px;
-margin-bottom: 20px;
-}
+.hero-content{position:relative;z-index:2;max-width:900px;}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(184,150,46,.3);background:rgba(184,150,46,.06);padding:8px 18px;margin-bottom:36px;opacity:0;animation:fadeUp .7s ease forwards .2s;}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(–gold2);animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
+.hero-badge span{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(–gold2);}
 
-.hero-desc {
-max-width: 500px;
-margin-bottom: 30px;
-}
+h1{font-family:‘Playfair Display’,serif;font-size:clamp(44px,6.5vw,96px);font-weight:400;line-height:1.04;letter-spacing:-.02em;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease forwards .4s;}
+h1 em{font-style:italic;color:var(–gold3);}
+h1 strong{font-weight:700;}
 
-.btn-primary {
-background: var(--gold);
-color: black;
-padding: 15px 30px;
-text-decoration: none;
-}
+.hero-sub{font-size:15px;line-height:1.85;color:var(–muted);max-width:540px;margin-bottom:20px;opacity:0;animation:fadeUp .8s ease forwards .6s;}
+.hero-rate{display:inline-flex;align-items:center;gap:10px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);padding:10px 20px;margin-bottom:52px;opacity:0;animation:fadeUp .8s ease forwards .75s;}
+.hero-rate .rate{font-family:‘Playfair Display’,serif;font-size:22px;font-weight:500;color:var(–green);}
+.hero-rate .rate-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(34,197,94,.6);line-height:1.5;}
 
-/* CTA */
-.cta {
-padding: 80px 20px;
-text-align: center;
-background: var(--gold);
-color: black;
-}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards .9s;}
+.btn-gold{display:inline-flex;align-items:center;gap:10px;background:var(–gold);color:var(–ink);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:16px 32px;transition:background .3s,transform .2s,box-shadow .3s;}
+.btn-gold:hover{background:var(–gold3);transform:translateY(-2px);box-shadow:0 16px 48px rgba(184,150,46,.28);}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;border:1px solid var(–border2);color:var(–muted);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:16px 32px;transition:border-color .3s,color .3s,transform .2s;}
+.btn-ghost:hover{border-color:var(–gold);color:var(–gold2);transform:translateY(-2px);}
+.btn-wa{display:inline-flex;align-items:center;gap:10px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(–green);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:16px 32px;transition:background .3s,transform .2s;}
+.btn-wa:hover{background:rgba(34,197,94,.2);transform:translateY(-2px);}
+.btn-wa svg,.btn-gold svg{width:15px;height:15px;}
 
-.cta a {
-background: black;
-color: var(--gold);
-padding: 15px 30px;
-text-decoration: none;
-display: inline-block;
-margin-top: 20px;
+/* SCROLLING NUMBERS */
+.marquee-wrap{border-top:1px solid var(–border);border-bottom:1px solid var(–border);background:var(–surface);padding:16px 0;overflow:hidden;white-space:nowrap;}
+.marquee-inner{display:inline-flex;gap:64px;animation:marquee 28s linear infinite;}
+.marquee-item{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(–muted);display:flex;align-items:center;gap:10px;}
+.marquee-item b{color:var(–gold2);font-weight:400;}
+.marquee-dot{width:3px;height:3px;border-radius:50%;background:var(–gold);flex-shrink:0;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* SECTIONS */
+section{padding:110px 56px;position:relative;}
+
+.s-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(–gold);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.s-label::before{content:’’;width:20px;height:1px;background:var(–gold);}
+h2{font-family:‘Playfair Display’,serif;font-size:clamp(32px,3.8vw,58px);font-weight:400;line-height:1.1;margin-bottom:60px;}
+h2 em{font-style:italic;color:var(–gold3);}
+
+/* RATES BAND */
+.rates-band{background:var(–ink2);border-top:1px solid var(–border);border-bottom:1px solid var(–border);padding:72px 56px;}
+.rates-inner{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;max-width:900px;margin:0 auto;}
+.rates-div{background:var(–border);}
+.rate-box{padding:0 56px;text-align:center;}
+.rate-box:first-child{padding-left:0;}
+.rate-big{font-family:‘Playfair Display’,serif;font-size:clamp(48px,5vw,80px);font-weight:400;line-height:1;color:var(–gold3);margin-bottom:8px;}
+.rate-big sup{font-size:.45em;vertical-align:super;color:var(–gold);}
+.rate-big sub{font-size:.35em;vertical-align:baseline;color:var(–muted);}
+.rate-desc{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);line-height:1.7;}
+.rate-highlight{color:var(–green);}
+
+/* WHAT WE DO */
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(–border);}
+.what-card{background:var(–ink2);padding:52px 44px;position:relative;overflow:hidden;transition:background .35s;}
+.what-card::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(–gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.what-card:hover{background:var(–surface);}
+.what-card:hover::after{transform:scaleX(1);}
+.what-icon{font-size:32px;margin-bottom:24px;}
+.what-card h3{font-family:‘Playfair Display’,serif;font-size:26px;font-weight:400;margin-bottom:14px;line-height:1.2;}
+.what-card p{font-size:12px;line-height:1.9;color:var(–muted);}
+.what-tag{display:inline-block;margin-top:18px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(–gold);border:1px solid rgba(184,150,46,.25);padding:5px 12px;}
+
+/* CTA BAND */
+.cta-band{background:linear-gradient(135deg,#0f0e0b 0%,#14120a 100%);border:1px solid rgba(184,150,46,.2);padding:72px 56px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:48px;margin:0 56px;}
+.cta-band h3{font-family:‘Playfair Display’,serif;font-size:clamp(28px,3vw,46px);font-weight:400;line-height:1.15;}
+.cta-band h3 em{font-style:italic;color:var(–gold3);}
+
+/* OBJECTIONS */
+.obj-grid{display:flex;flex-direction:column;gap:0;}
+.obj{display:grid;grid-template-columns:60px 1fr;gap:0;border-bottom:1px solid var(–border);padding:40px 0;transition:background .3s;cursor:default;}
+.obj:first-child{border-top:1px solid var(–border);}
+.obj-num{font-family:‘Playfair Display’,serif;font-size:13px;color:var(–muted2);padding-top:4px;font-style:italic;}
+.obj-body{}
+.obj-q{font-family:‘Playfair Display’,serif;font-size:20px;font-weight:400;margin-bottom:12px;line-height:1.3;color:var(–text);}
+.obj-a{font-size:12px;line-height:1.9;color:var(–muted);}
+.obj-a strong{color:var(–gold2);font-weight:400;}
+
+/* WHO */
+.who-section{background:var(–ink2);border-top:1px solid var(–border);border-bottom:1px solid var(–border);}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(–border);}
+.who-card{background:var(–ink2);padding:44px 36px;transition:background .3s;}
+.who-card:hover{background:var(–surface);}
+.who-num{font-family:‘Playfair Display’,serif;font-size:42px;font-weight:400;color:var(–gold);line-height:1;margin-bottom:10px;}
+.who-num span{font-size:20px;}
+.who-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(–muted);line-height:1.7;}
+
+/* FORM */
+.form-section{background:var(–ink);}
+.form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.form-left h2{margin-bottom:20px;}
+.form-left p{font-size:13px;line-height:1.85;color:var(–muted);margin-bottom:32px;}
+.form-left .promise{display:flex;flex-direction:column;gap:12px;}
+.promise-item{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.08em;color:var(–muted);}
+.promise-item::before{content:‘✓’;color:var(–green);font-size:13px;flex-shrink:0;}
+
+.form-box{background:var(–surface);border:1px solid var(–border);padding:48px 40px;}
+.form-box h3{font-family:‘Playfair Display’,serif;font-size:24px;font-weight:400;margin-bottom:8px;}
+.form-box .form-sub{font-size:11px;color:var(–muted);letter-spacing:.08em;margin-bottom:32px;}
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(–muted);margin-bottom:8px;}
+.field input,.field select{width:100%;background:var(–ink2);border:1px solid var(–border2);color:var(–text);font-family:‘Syne’,sans-serif;font-size:13px;font-weight:300;padding:14px 18px;outline:none;transition:border-color .3s,box-shadow .3s;}
+.field input::placeholder{color:var(–muted2);}
+.field input:focus,.field select:focus{border-color:var(–gold);box-shadow:0 0 0 3px rgba(184,150,46,.08);}
+.field select{appearance:none;cursor:pointer;color:var(–muted);}
+.field select option{background:var(–ink2);}
+.form-btn{width:100%;background:var(–gold);color:var(–ink);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;border:none;padding:18px;cursor:none;transition:background .3s,transform .2s,box-shadow .3s;margin-top:8px;}
+.form-btn:hover{background:var(–gold3);transform:translateY(-2px);box-shadow:0 12px 40px rgba(184,150,46,.25);}
+.form-success{display:none;text-align:center;padding:40px 20px;}
+.form-success .check{font-size:48px;margin-bottom:16px;}
+.form-success h4{font-family:‘Playfair Display’,serif;font-size:22px;margin-bottom:10px;}
+.form-success p{font-size:12px;color:var(–muted);line-height:1.8;}
+.form-note{font-size:9px;color:var(–muted2);text-align:center;margin-top:14px;letter-spacing:.08em;line-height:1.6;}
+
+/* FOOTER */
+footer{background:var(–ink2);border-top:1px solid var(–border);padding:60px 56px 40px;}
+.footer-top{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:start;padding-bottom:48px;border-bottom:1px solid var(–border);}
+.footer-logo{font-family:‘Playfair Display’,serif;font-size:22px;color:var(–gold3);margin-bottom:10px;}
+.footer-desc{font-size:11px;line-height:1.8;color:var(–muted);max-width:280px;}
+.footer-links{display:flex;gap:32px;}
+.footer-links a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);text-decoration:none;transition:color .3s;}
+.footer-links a:hover{color:var(–gold2);}
+.footer-bottom{padding-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;}
+.footer-privacy{display:flex;align-items:center;gap:10px;font-size:10px;color:var(–muted2);line-height:1.6;}
+.footer-privacy::before{content:‘🔒’;font-size:13px;}
+.footer-legal{font-size:9px;color:var(–muted2);letter-spacing:.1em;}
+
+/* REVEAL */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.on{opacity:1;transform:translateY(0);}
+
+/* FLOAT WA */
+.float-wa{position:fixed;bottom:32px;right:32px;z-index:300;display:flex;align-items:center;gap:10px;background:var(–green);color:#fff;font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 22px;box-shadow:0 8px 32px rgba(34,197,94,.3);transition:transform .2s,box-shadow .3s;}
+.float-wa:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(34,197,94,.4);}
+.float-wa svg{width:18px;height:18px;}
+
+/* Responsive */
+@media(max-width:900px){
+nav{padding:20px 24px;}
+.hero{padding:120px 24px 80px;}
+section{padding:80px 24px;}
+.rates-band{padding:56px 24px;}
+.rates-inner{grid-template-columns:1fr;gap:40px;}
+.rates-div{display:none;}
+.rate-box{padding:0;text-align:left;}
+.what-grid{grid-template-columns:1fr;}
+.cta-band{grid-template-columns:1fr;margin:0 24px;padding:48px 32px;}
+.who-grid{grid-template-columns:1fr 1fr;}
+.form-wrap{grid-template-columns:1fr;gap:48px;}
+footer{padding:48px 24px 32px;}
+.footer-top{grid-template-columns:1fr;}
+.footer-links{flex-wrap:wrap;gap:20px;}
+.footer-bottom{flex-direction:column;gap:16px;text-align:center;}
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<nav>
-<div class="logo">Capital.</div>
-<a href="https://wa.me/5511980115822" target="_blank" class="nav-cta">Falar no WhatsApp</a>
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- FLOAT WHATSAPP -->
+
+<a href="https://wa.me/5511941006383?text=Olá!%20Tenho%20interesse%20em%20crédito%20para%20minha%20empresa." class="float-wa" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+  Falar no WhatsApp
+</a>
+
+<!-- NAV -->
+
+<nav id="nav">
+  <div class="logo">Vaalore<sup>®</sup></div>
+  <div class="nav-right">
+    <a href="mailto:contato@send.veelore.com.br" class="nav-email">contato@vaalore.com.br</a>
+    <a href="https://wa.me/5511941006383?text=Olá!%20Tenho%20interesse%20em%20crédito%20para%20minha%20empresa." class="nav-wa" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      WhatsApp
+    </a>
+  </div>
 </nav>
 
+<!-- HERO -->
+
 <section class="hero">
-<h1>Capital que acelera seu crescimento</h1>
-<p class="hero-desc">
-Sua empresa pode estar perdendo oportunidades por falta de capital — nós resolvemos isso.
-</p>
-
-<a href="https://wa.me/5511980115822" target="_blank" class="btn-primary">
-Falar com especialista
-</a>
+  <div class="hero-bg">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span>Crédito exclusivo para empresas · Desde o diagnóstico até o desembolso</span>
+    </div>
+    <h1>O menor custo<br>de <em>crédito</em><br>do mercado</h1>
+    <p class="hero-sub">A Vaalore é uma consultoria especializada em crédito empresarial. Estruturamos a melhor solução financeira para a sua empresa — com agilidade, discrição e as taxas mais competitivas do Brasil.</p>
+    <div class="hero-rate">
+      <div>
+        <div class="rate">0,9% a.m.</div>
+      </div>
+      <div class="rate-label">Taxa inicial<br><span class="rate-highlight">pode chegar a 0,2% a.m.</span></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#formulario" class="btn-gold">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        Simular meu crédito
+      </a>
+      <a href="https://wa.me/5511941006383?text=Olá!%20Quero%20saber%20mais%20sobre%20crédito%20para%20minha%20empresa." class="btn-wa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Falar agora
+      </a>
+    </div>
+  </div>
 </section>
 
-<section class="cta">
-<h2>Pronto para crescer com o capital certo?</h2>
-<a href="https://wa.me/5511980115822" target="_blank">
-Solicitar análise agora
-</a>
+<!-- MARQUEE -->
+
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item"><span class="marquee-dot"></span>Capital de Giro</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Expansão de Negócios</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Refinanciamento de Dívidas</span>
+    <span class="marquee-item"><span class="marquee-dot"></span><b>0,9% a.m.</b>&nbsp;→ até&nbsp;<b>0,2% a.m.</b></span>
+    <span class="marquee-item"><span class="marquee-dot"></span>R$ 50 mil a R$ 30 milhões</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Empresas acima de R$ 30k/mês</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Resposta em 24h</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Capital de Giro</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Expansão de Negócios</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Refinanciamento de Dívidas</span>
+    <span class="marquee-item"><span class="marquee-dot"></span><b>0,9% a.m.</b>&nbsp;→ até&nbsp;<b>0,2% a.m.</b></span>
+    <span class="marquee-item"><span class="marquee-dot"></span>R$ 50 mil a R$ 30 milhões</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Empresas acima de R$ 30k/mês</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Resposta em 24h</span>
+  </div>
+</div>
+
+<!-- RATES -->
+
+<div class="rates-band reveal">
+  <div class="rates-inner">
+    <div class="rate-box">
+      <div class="rate-big"><sup>a partir de</sup>0,9<sub>% a.m.</sub></div>
+      <div class="rate-desc">Taxa de entrada<br>no mercado</div>
+    </div>
+    <div class="rates-div"></div>
+    <div class="rate-box">
+      <div class="rate-big" style="color:var(--green);">0,2<sub>% a.m.</sub></div>
+      <div class="rate-desc rate-highlight">Menor taxa<br>possível com estruturação</div>
+    </div>
+    <div class="rates-div"></div>
+    <div class="rate-box">
+      <div class="rate-big">30<sub>mi</sub></div>
+      <div class="rate-desc">Limite máximo<br>por operação</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT -->
+
+<section id="solucoes">
+  <div class="s-label reveal">O que fazemos</div>
+  <h2 class="reveal">Crédito para quem<br><em>constrói</em> de verdade</h2>
+  <div class="what-grid">
+    <div class="what-card reveal">
+      <div class="what-icon">◈</div>
+      <h3>Capital de Giro</h3>
+      <p>Reforce o caixa sem comprometer o crescimento. Estruturamos linhas de crédito com as menores taxas do mercado para manter sua operação fluindo — mesmo nos momentos de maior pressão.</p>
+      <span class="what-tag">R$ 50k – R$ 30mi</span>
+    </div>
+    <div class="what-card reveal">
+      <div class="what-icon">△</div>
+      <h3>Expansão de Negócios</h3>
+      <p>Nova unidade, novo equipamento ou nova vertente de receita? Conectamos sua empresa às melhores estruturas de financiamento para crescer sem diluir equity desnecessariamente.</p>
+      <span class="what-tag">Longo prazo · Taxas fixas</span>
+    </div>
+    <div class="what-card reveal">
+      <div class="what-icon">○</div>
+      <h3>Refinanciamento de Dívidas</h3>
+      <p>Dívidas caras consomem margem e freiam o crescimento. Reestruturamos seu passivo com inteligência — unificando, alongando e reduzindo o custo financeiro total da sua empresa.</p>
+      <span class="what-tag">Redução de custos</span>
+    </div>
+    <div class="what-card reveal">
+      <div class="what-icon">⬡</div>
+      <h3>Consultoria de Crédito</h3>
+      <p>Antes de qualquer operação, entendemos o seu negócio. Mapeamos as melhores fontes de capital disponíveis no mercado e estruturamos a proposta ideal para o seu perfil e momento.</p>
+      <span class="what-tag">Diagnóstico gratuito</span>
+    </div>
+  </div>
 </section>
+
+<!-- CTA BAND 1 -->
+
+<div class="cta-band reveal">
+  <h3>Sua empresa fatura acima de<br><em>R$ 30 mil por mês?</em></h3>
+  <a href="#formulario" class="btn-gold">
+    Quero meu crédito
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+</div>
+
+<!-- WHO -->
+
+<section class="who-section" id="numeros">
+  <div class="s-label reveal" style="padding:0 0 18px;">Para quem é</div>
+  <div class="who-grid">
+    <div class="who-card reveal">
+      <div class="who-num">R$30k<span>+</span></div>
+      <div class="who-label">Faturamento mensal<br>mínimo da empresa</div>
+    </div>
+    <div class="who-card reveal">
+      <div class="who-num">R$50k<span>–</span>30mi</div>
+      <div class="who-label">Volume de crédito<br>por operação</div>
+    </div>
+    <div class="who-card reveal">
+      <div class="who-num">24<span>h</span></div>
+      <div class="who-label">Prazo para<br>primeira resposta</div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS -->
+
+<section id="duvidas">
+  <div class="s-label reveal">Quebra de objeções</div>
+  <h2 class="reveal">Pensamentos que<br><em>todo empresário</em> tem</h2>
+  <div class="obj-grid">
+    <div class="obj reveal">
+      <div class="obj-num">01</div>
+      <div class="obj-body">
+        <div class="obj-q">"Já tentei crédito antes e foi burocrático demais."</div>
+        <div class="obj-a">A Vaalore não é um banco. Somos uma consultoria que <strong>trabalha para você</strong>, não para a instituição financeira. Fazemos o diagnóstico, montamos o dossiê e submetemos nas fontes certas — você só aparece para assinar. A nossa eficiência é o nosso produto.</div>
+      </div>
+    </div>
+    <div class="obj reveal">
+      <div class="obj-num">02</div>
+      <div class="obj-body">
+        <div class="obj-q">"As taxas que me ofereceram são altíssimas."</div>
+        <div class="obj-a">A maioria das empresas aceita a primeira taxa que aparece. Nós não fazemos isso. Estruturamos sua operação para acessar linhas que começam em <strong>0,9% ao mês</strong> e, dependendo do perfil, podem chegar a <strong>0,2% ao mês</strong> — valores que bancos raramente apresentam diretamente.</div>
+      </div>
+    </div>
+    <div class="obj reveal">
+      <div class="obj-num">03</div>
+      <div class="obj-body">
+        <div class="obj-q">"Minha empresa não está com os documentos 100% em dia."</div>
+        <div class="obj-a">Isso é mais comum do que parece — e não necessariamente um impedimento. Na consultoria inicial, mapeamos exatamente o que precisa ser ajustado e o que já está aprovável agora. Muitos clientes conseguem crédito <strong>sem precisar regularizar tudo antes</strong>.</div>
+      </div>
+    </div>
+    <div class="obj reveal">
+      <div class="obj-num">04</div>
+      <div class="obj-body">
+        <div class="obj-q">"Não sei se minha empresa tem perfil para esse crédito."</div>
+        <div class="obj-a">Atendemos empresas com faturamento a partir de R$ 30 mil por mês — de pequenas operações familiares a grupos com múltiplos CNPJs. O perfil ideal <strong>é avaliado individualmente</strong>, e nossa consulta inicial é gratuita e sem compromisso.</div>
+      </div>
+    </div>
+    <div class="obj reveal">
+      <div class="obj-num">05</div>
+      <div class="obj-body">
+        <div class="obj-q">"Tenho medo de comprometer o caixa com mais uma dívida."</div>
+        <div class="obj-a">Essa é exatamente a pergunta certa. Crédito bem estruturado <strong>libera caixa</strong>, não aprisiona. Nossa consultoria inclui análise do impacto da operação no fluxo de caixa — só avançamos se fizer sentido real para o seu negócio.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND 2 -->
+
+<div class="cta-band reveal" style="margin-bottom:0;">
+  <h3>Crédito de <em>R$ 50 mil a R$ 30 milhões</em><br>para sua empresa</h3>
+  <a href="https://wa.me/5511941006383?text=Olá!%20Quero%20simular%20um%20crédito%20para%20minha%20empresa." class="btn-wa" target="_blank" rel="noopener" style="white-space:nowrap;padding:16px 28px;">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    Falar com especialista
+  </a>
+</div>
+
+<!-- FORM -->
+
+<section class="form-section" id="formulario">
+  <div class="form-wrap">
+    <div class="form-left reveal">
+      <div class="s-label">Primeiro passo</div>
+      <h2>Vamos entender<br>o que sua empresa<br><em>precisa</em></h2>
+      <p>Preencha o formulário ao lado e um especialista da Vaalore entra em contato em até 24 horas — sem compromisso, sem burocracia, sem custo.</p>
+      <div class="promise">
+        <div class="promise-item">Diagnóstico financeiro gratuito</div>
+        <div class="promise-item">Taxas a partir de 0,9% ao mês</div>
+        <div class="promise-item">Aprovação em até 72h úteis</div>
+        <div class="promise-item">De R$ 50 mil a R$ 30 milhões</div>
+        <div class="promise-item">Sem consulta ao CPF nesta etapa</div>
+      </div>
+    </div>
+    <div class="form-box reveal">
+      <div id="form-content">
+        <h3>Solicitar análise de crédito</h3>
+        <p class="form-sub">Preencha abaixo · Retorno em até 24h</p>
+        <div class="field">
+          <label>Seu nome</label>
+          <input type="text" id="f-nome" placeholder="Como podemos te chamar?" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Nome da empresa</label>
+          <input type="text" id="f-empresa" placeholder="Razão social ou nome fantasia" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>E-mail corporativo</label>
+          <input type="email" id="f-email" placeholder="seu@empresa.com.br" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Faturamento mensal estimado</label>
+          <select id="f-fat">
+            <option value="" disabled selected>Selecione uma faixa</option>
+            <option>R$ 30k – R$ 100k</option>
+            <option>R$ 100k – R$ 500k</option>
+            <option>R$ 500k – R$ 2mi</option>
+            <option>Acima de R$ 2mi</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Necessidade de crédito</label>
+          <select id="f-tipo">
+            <option value="" disabled selected>Qual é o objetivo?</option>
+            <option>Capital de Giro</option>
+            <option>Expansão de Negócios</option>
+            <option>Refinanciamento de Dívidas</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <button class="form-btn" onclick="sendForm()">Quero minha análise gratuita →</button>
+        <p class="form-note">🔒 Seus dados estão seguros. Utilizamos suas informações apenas para contato comercial e análise de crédito.</p>
+      </div>
+      <div class="form-success" id="form-success">
+        <div class="check">✅</div>
+        <h4>Recebemos sua solicitação!</h4>
+        <p>Em até 24 horas um especialista da Vaalore entrará em contato pelo e-mail informado.<br><br>Se preferir falar agora, é só nos chamar no WhatsApp.</p>
+        <br>
+        <a href="https://wa.me/5511941006383?text=Olá!%20Acabei%20de%20preencher%20o%20formulário%20no%20site." class="btn-wa" target="_blank" rel="noopener" style="display:inline-flex;margin-top:8px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Vaalore</div>
+      <div class="footer-desc">Consultoria especializada em crédito empresarial. Menor custo de capital para empresas que faturam acima de R$ 30 mil por mês.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#solucoes">Soluções</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a href="#formulario">Simular crédito</a>
+      <a href="mailto:contato@send.veelore.com.br">E-mail</a>
+      <a href="https://wa.me/5511941006383" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-privacy">Seus dados estão seguros. Utilizamos suas informações apenas para contato comercial e análise de crédito.</div>
+    <div class="footer-legal">© 2026 Vaalore · Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function loop(){rx+=(mx-rx).13;ry+=(my-ry).13;cur2.style.left=rx+'px';cur2.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+
+// Reveal
+const revealEls=document.querySelectorAll('.reveal');
+new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*70);} 
+  });
+},{threshold:.08}).observe||revealEls.forEach(el=>{
+  new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){entries[0].target.classList.add('on');}
+  },{threshold:.08}).observe(el);
+});
+revealEls.forEach(el=>{
+  new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){entries[0].target.classList.add('on');}
+  },{threshold:.08}).observe(el);
+});
+
+// Form
+function sendForm(){
+  const nome=document.getElementById('f-nome').value.trim();
+  const empresa=document.getElementById('f-empresa').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const fat=document.getElementById('f-fat').value;
+  const tipo=document.getElementById('f-tipo').value;
+  if(!nome||!empresa||!email||!fat||!tipo){
+    alert('Por favor, preencha todos os campos.');return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert('Por favor, insira um e-mail válido.');return;
+  }
+  const subject=encodeURIComponent('Nova solicitação de crédito — Vaalore');
+  const body=encodeURIComponent(
+    Nova solicitação de análise de crédito:\n\nNome: ${nome}\nEmpresa: ${empresa}\nE-mail: ${email}\nFaturamento: ${fat}\nNecessidade: ${tipo}\n\nEnviado via site vaalore.com.br
+  );
+  window.location.href=mailto:contato@send.veelore.com.br?subject=${subject}&body=${body};
+  setTimeout(()=>{
+    document.getElementById('form-content').style.display='none';
+    document.getElementById('form-success').style.display='block';
+  },800);
+}
+</script>
 
 </body>
 </html>
