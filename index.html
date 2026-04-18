@@ -1,588 +1,1139 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vaalore — Crédito Empresarial com o Menor Custo do Brasil</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Syne:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-,::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --ink:#09090b;
-  --ink2:#111113;
-  --surface:#161618;
-  --border:#222226;
-  --border2:#2a2a2f;
-  --gold:#b8962e;
-  --gold2:#d4af5a;
-  --gold3:#f0cc7a;
-  --gold-glow:rgba(184,150,46,0.18);
-  --text:#f0ece4;
-  --muted:#7c7870;
-  --muted2:#4a4844;
-  --green:#22c55e;
-}
-html{scroll-behavior:smooth;}
-body{
-  background:var(--ink);
-  color:var(--text);
-  font-family:'Syne',sans-serif;
-  font-weight:300;
-  overflow-x:hidden;
-  cursor:none;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* CURSOR */
-#cur{position:fixed;width:6px;height:6px;background:var(–gold3);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
-#cur2{position:fixed;width:28px;height:28px;border:1px solid rgba(212,175,90,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .14s ease-out,border-color .3s;}
-a:hover~#cur,button:hover~#cur{width:12px;height:12px;}
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D08A;
+    --gold-pale: #FAF6ED;
+    --navy: #0E1B2E;
+    --navy-mid: #1A2D45;
+    --navy-soft: #243549;
+    --cream: #FDFBF7;
+    --cream-mid: #F5F0E8;
+    --text-dark: #0E1B2E;
+    --text-mid: #3D5068;
+    --text-light: #6B849A;
+    --white: #FFFFFF;
+    --green: #1A6B47;
+    --green-bg: #EAF5EE;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
 
-/* GRAIN */
-body::after{content:’’;position:fixed;inset:0;background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.045’/%3E%3C/svg%3E”);pointer-events:none;z-index:900;opacity:.4;}
+  html { scroll-behavior: smooth; }
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 56px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,border-color .4s;border-bottom:1px solid transparent;}
-nav.scrolled{background:rgba(9,9,11,.93);backdrop-filter:blur(16px);border-color:var(–border);}
-.logo{font-family:‘Playfair Display’,serif;font-size:24px;font-weight:500;letter-spacing:.04em;color:var(–gold3);}
-.logo sup{font-size:11px;color:var(–muted);font-family:‘Syne’,sans-serif;font-weight:300;letter-spacing:.1em;}
-.nav-right{display:flex;gap:12px;align-items:center;}
-.nav-wa{display:flex;align-items:center;gap:8px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(–green);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:9px 18px;transition:background .3s,transform .2s;}
-.nav-wa:hover{background:rgba(34,197,94,.18);transform:translateY(-1px);}
-.nav-wa svg{width:14px;height:14px;}
-.nav-email{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(–muted);text-decoration:none;padding:9px 18px;border:1px solid var(–border);transition:color .3s,border-color .3s;}
-.nav-email:hover{color:var(–gold2);border-color:var(–gold);}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    line-height: 1.6;
+    font-size: 16px;
+  }
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:140px 56px 100px;}
-.hero-bg{position:absolute;inset:0;z-index:0;}
-.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,150,46,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,150,46,.04) 1px,transparent 1px);background-size:72px 72px;animation:gridDrift 24s linear infinite;}
-@keyframes gridDrift{0%{background-position:0 0;}100%{background-position:72px 72px;}}
-.hero-glow{position:absolute;top:-20%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(184,150,46,.07) 0%,transparent 65%);pointer-events:none;}
-.hero-glow2{position:absolute;bottom:-10%;left:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(184,150,46,.04) 0%,transparent 65%);pointer-events:none;}
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    background: rgba(253, 251, 247, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #E8DFC8;
+    padding: 0 5%;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.hero-content{position:relative;z-index:2;max-width:900px;}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(184,150,46,.3);background:rgba(184,150,46,.06);padding:8px 18px;margin-bottom:36px;opacity:0;animation:fadeUp .7s ease forwards .2s;}
-.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(–gold2);animation:pulse 2s ease infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
-.hero-badge span{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(–gold2);}
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+    text-decoration: none;
+  }
 
-h1{font-family:‘Playfair Display’,serif;font-size:clamp(44px,6.5vw,96px);font-weight:400;line-height:1.04;letter-spacing:-.02em;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease forwards .4s;}
-h1 em{font-style:italic;color:var(–gold3);}
-h1 strong{font-weight:700;}
+  .nav-logo span { color: var(--gold); }
 
-.hero-sub{font-size:15px;line-height:1.85;color:var(–muted);max-width:540px;margin-bottom:20px;opacity:0;animation:fadeUp .8s ease forwards .6s;}
-.hero-rate{display:inline-flex;align-items:center;gap:10px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);padding:10px 20px;margin-bottom:52px;opacity:0;animation:fadeUp .8s ease forwards .75s;}
-.hero-rate .rate{font-family:‘Playfair Display’,serif;font-size:22px;font-weight:500;color:var(–green);}
-.hero-rate .rate-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(34,197,94,.6);line-height:1.5;}
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
 
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards .9s;}
-.btn-gold{display:inline-flex;align-items:center;gap:10px;background:var(–gold);color:var(–ink);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:16px 32px;transition:background .3s,transform .2s,box-shadow .3s;}
-.btn-gold:hover{background:var(–gold3);transform:translateY(-2px);box-shadow:0 16px 48px rgba(184,150,46,.28);}
-.btn-ghost{display:inline-flex;align-items:center;gap:10px;border:1px solid var(–border2);color:var(–muted);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:16px 32px;transition:border-color .3s,color .3s,transform .2s;}
-.btn-ghost:hover{border-color:var(–gold);color:var(–gold2);transform:translateY(-2px);}
-.btn-wa{display:inline-flex;align-items:center;gap:10px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(–green);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:16px 32px;transition:background .3s,transform .2s;}
-.btn-wa:hover{background:rgba(34,197,94,.2);transform:translateY(-2px);}
-.btn-wa svg,.btn-gold svg{width:15px;height:15px;}
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 14px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
 
-/* SCROLLING NUMBERS */
-.marquee-wrap{border-top:1px solid var(–border);border-bottom:1px solid var(–border);background:var(–surface);padding:16px 0;overflow:hidden;white-space:nowrap;}
-.marquee-inner{display:inline-flex;gap:64px;animation:marquee 28s linear infinite;}
-.marquee-item{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(–muted);display:flex;align-items:center;gap:10px;}
-.marquee-item b{color:var(–gold2);font-weight:400;}
-.marquee-dot{width:3px;height:3px;border-radius:50%;background:var(–gold);flex-shrink:0;}
-@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  .nav-links a:hover { color: var(--navy); }
 
-/* SECTIONS */
-section{padding:110px 56px;position:relative;}
+  .nav-cta {
+    background: var(--gold) !important;
+    color: var(--white) !important;
+    padding: 10px 22px !important;
+    border-radius: var(--radius-sm) !important;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
 
-.s-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(–gold);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
-.s-label::before{content:’’;width:20px;height:1px;background:var(–gold);}
-h2{font-family:‘Playfair Display’,serif;font-size:clamp(32px,3.8vw,58px);font-weight:400;line-height:1.1;margin-bottom:60px;}
-h2 em{font-style:italic;color:var(–gold3);}
+  .nav-cta:hover { background: #B8923E !important; }
 
-/* RATES BAND */
-.rates-band{background:var(–ink2);border-top:1px solid var(–border);border-bottom:1px solid var(–border);padding:72px 56px;}
-.rates-inner{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;max-width:900px;margin:0 auto;}
-.rates-div{background:var(–border);}
-.rate-box{padding:0 56px;text-align:center;}
-.rate-box:first-child{padding-left:0;}
-.rate-big{font-family:‘Playfair Display’,serif;font-size:clamp(48px,5vw,80px);font-weight:400;line-height:1;color:var(–gold3);margin-bottom:8px;}
-.rate-big sup{font-size:.45em;vertical-align:super;color:var(–gold);}
-.rate-big sub{font-size:.35em;vertical-align:baseline;color:var(–muted);}
-.rate-desc{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);line-height:1.7;}
-.rate-highlight{color:var(–green);}
+  .nav-mobile-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
 
-/* WHAT WE DO */
-.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(–border);}
-.what-card{background:var(–ink2);padding:52px 44px;position:relative;overflow:hidden;transition:background .35s;}
-.what-card::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(–gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
-.what-card:hover{background:var(–surface);}
-.what-card:hover::after{transform:scaleX(1);}
-.what-icon{font-size:32px;margin-bottom:24px;}
-.what-card h3{font-family:‘Playfair Display’,serif;font-size:26px;font-weight:400;margin-bottom:14px;line-height:1.2;}
-.what-card p{font-size:12px;line-height:1.9;color:var(–muted);}
-.what-tag{display:inline-block;margin-top:18px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(–gold);border:1px solid rgba(184,150,46,.25);padding:5px 12px;}
+  .nav-mobile-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--navy);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
 
-/* CTA BAND */
-.cta-band{background:linear-gradient(135deg,#0f0e0b 0%,#14120a 100%);border:1px solid rgba(184,150,46,.2);padding:72px 56px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:48px;margin:0 56px;}
-.cta-band h3{font-family:‘Playfair Display’,serif;font-size:clamp(28px,3vw,46px);font-weight:400;line-height:1.15;}
-.cta-band h3 em{font-style:italic;color:var(–gold3);}
+  /* HERO */
+  .hero {
+    padding: 140px 5% 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+  }
 
-/* OBJECTIONS */
-.obj-grid{display:flex;flex-direction:column;gap:0;}
-.obj{display:grid;grid-template-columns:60px 1fr;gap:0;border-bottom:1px solid var(–border);padding:40px 0;transition:background .3s;cursor:default;}
-.obj:first-child{border-top:1px solid var(–border);}
-.obj-num{font-family:‘Playfair Display’,serif;font-size:13px;color:var(–muted2);padding-top:4px;font-style:italic;}
-.obj-body{}
-.obj-q{font-family:‘Playfair Display’,serif;font-size:20px;font-weight:400;margin-bottom:12px;line-height:1.3;color:var(–text);}
-.obj-a{font-size:12px;line-height:1.9;color:var(–muted);}
-.obj-a strong{color:var(–gold2);font-weight:400;}
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-pale);
+    border: 1px solid #E4D09A;
+    color: #7A5E1A;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
 
-/* WHO */
-.who-section{background:var(–ink2);border-top:1px solid var(–border);border-bottom:1px solid var(–border);}
-.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(–border);}
-.who-card{background:var(–ink2);padding:44px 36px;transition:background .3s;}
-.who-card:hover{background:var(–surface);}
-.who-num{font-family:‘Playfair Display’,serif;font-size:42px;font-weight:400;color:var(–gold);line-height:1;margin-bottom:10px;}
-.who-num span{font-size:20px;}
-.who-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(–muted);line-height:1.7;}
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
 
-/* FORM */
-.form-section{background:var(–ink);}
-.form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
-.form-left h2{margin-bottom:20px;}
-.form-left p{font-size:13px;line-height:1.85;color:var(–muted);margin-bottom:32px;}
-.form-left .promise{display:flex;flex-direction:column;gap:12px;}
-.promise-item{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.08em;color:var(–muted);}
-.promise-item::before{content:‘✓’;color:var(–green);font-size:13px;flex-shrink:0;}
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.12;
+    color: var(--navy);
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
 
-.form-box{background:var(–surface);border:1px solid var(–border);padding:48px 40px;}
-.form-box h3{font-family:‘Playfair Display’,serif;font-size:24px;font-weight:400;margin-bottom:8px;}
-.form-box .form-sub{font-size:11px;color:var(–muted);letter-spacing:.08em;margin-bottom:32px;}
-.field{margin-bottom:20px;}
-.field label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(–muted);margin-bottom:8px;}
-.field input,.field select{width:100%;background:var(–ink2);border:1px solid var(–border2);color:var(–text);font-family:‘Syne’,sans-serif;font-size:13px;font-weight:300;padding:14px 18px;outline:none;transition:border-color .3s,box-shadow .3s;}
-.field input::placeholder{color:var(–muted2);}
-.field input:focus,.field select:focus{border-color:var(–gold);box-shadow:0 0 0 3px rgba(184,150,46,.08);}
-.field select{appearance:none;cursor:pointer;color:var(–muted);}
-.field select option{background:var(–ink2);}
-.form-btn{width:100%;background:var(–gold);color:var(–ink);font-family:‘Syne’,sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;border:none;padding:18px;cursor:none;transition:background .3s,transform .2s,box-shadow .3s;margin-top:8px;}
-.form-btn:hover{background:var(–gold3);transform:translateY(-2px);box-shadow:0 12px 40px rgba(184,150,46,.25);}
-.form-success{display:none;text-align:center;padding:40px 20px;}
-.form-success .check{font-size:48px;margin-bottom:16px;}
-.form-success h4{font-family:‘Playfair Display’,serif;font-size:22px;margin-bottom:10px;}
-.form-success p{font-size:12px;color:var(–muted);line-height:1.8;}
-.form-note{font-size:9px;color:var(–muted2);text-align:center;margin-top:14px;letter-spacing:.08em;line-height:1.6;}
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
 
-/* FOOTER */
-footer{background:var(–ink2);border-top:1px solid var(–border);padding:60px 56px 40px;}
-.footer-top{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:start;padding-bottom:48px;border-bottom:1px solid var(–border);}
-.footer-logo{font-family:‘Playfair Display’,serif;font-size:22px;color:var(–gold3);margin-bottom:10px;}
-.footer-desc{font-size:11px;line-height:1.8;color:var(–muted);max-width:280px;}
-.footer-links{display:flex;gap:32px;}
-.footer-links a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);text-decoration:none;transition:color .3s;}
-.footer-links a:hover{color:var(–gold2);}
-.footer-bottom{padding-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;}
-.footer-privacy{display:flex;align-items:center;gap:10px;font-size:10px;color:var(–muted2);line-height:1.6;}
-.footer-privacy::before{content:‘🔒’;font-size:13px;}
-.footer-legal{font-size:9px;color:var(–muted2);letter-spacing:.1em;}
+  .hero-sub {
+    font-size: 17px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 520px;
+    font-weight: 300;
+  }
 
-/* REVEAL */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease;}
-.reveal.on{opacity:1;transform:translateY(0);}
+  .hero-btns {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
 
-/* FLOAT WA */
-.float-wa{position:fixed;bottom:32px;right:32px;z-index:300;display:flex;align-items:center;gap:10px;background:var(–green);color:#fff;font-family:‘Syne’,sans-serif;font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 22px;box-shadow:0 8px 32px rgba(34,197,94,.3);transition:transform .2s,box-shadow .3s;}
-.float-wa:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(34,197,94,.4);}
-.float-wa svg{width:18px;height:18px;}
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s, transform 0.15s;
+  }
 
-/* Responsive */
-@media(max-width:900px){
-nav{padding:20px 24px;}
-.hero{padding:120px 24px 80px;}
-section{padding:80px 24px;}
-.rates-band{padding:56px 24px;}
-.rates-inner{grid-template-columns:1fr;gap:40px;}
-.rates-div{display:none;}
-.rate-box{padding:0;text-align:left;}
-.what-grid{grid-template-columns:1fr;}
-.cta-band{grid-template-columns:1fr;margin:0 24px;padding:48px 32px;}
-.who-grid{grid-template-columns:1fr 1fr;}
-.form-wrap{grid-template-columns:1fr;gap:48px;}
-footer{padding:48px 24px 32px;}
-.footer-top{grid-template-columns:1fr;}
-.footer-links{flex-wrap:wrap;gap:20px;}
-.footer-bottom{flex-direction:column;gap:16px;text-align:center;}
-}
+  .btn-primary:hover { background: #B8923E; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--navy);
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1.5px solid #C5BBA8;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--navy); color: var(--navy); }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid #E8DFC8;
+  }
+
+  .stat-item { }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* HERO CARD */
+  .hero-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid #E8DFC8;
+    box-shadow: 0 4px 40px rgba(14,27,46,0.08);
+  }
+
+  .hero-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #EEE8D8;
+  }
+
+  .rate-display {
+    text-align: center;
+    padding: 28px 0;
+    background: var(--navy);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+  }
+
+  .rate-from {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .rate-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .rate-unit { font-size: 22px; }
+
+  .rate-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+  }
+
+  .card-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .card-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-mid);
+  }
+
+  .card-features li::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    background: var(--green-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5 6.5-7' stroke='%231A6B47' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .hero-card .btn-primary { width: 100%; justify-content: center; }
+
+  /* TICKER */
+  .ticker {
+    background: var(--navy);
+    overflow: hidden;
+    padding: 14px 0;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker 28s linear infinite;
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    padding: 0 40px;
+  }
+
+  .ticker-item strong { color: var(--gold-light); font-weight: 500; }
+
+  .ticker-dot {
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTION COMMONS */
+  section { padding: 96px 5%; }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 4vw, 44px);
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-sub {
+    font-size: 17px;
+    color: var(--text-mid);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  /* SERVICES */
+  #solucoes { background: var(--cream-mid); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid #E8DFC8;
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(14,27,46,0.1); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--gold-pale);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .service-card p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .service-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    color: #7A5E1A;
+    background: var(--gold-pale);
+    border: 1px solid #E4D09A;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  /* OBJECTIONS */
+  #duvidas { background: var(--white); }
+
+  .faq-list { max-width: 760px; display: flex; flex-direction: column; gap: 4px; }
+
+  .faq-item {
+    border: 1px solid #E8DFC8;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 22px 28px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .faq-question:hover { background: var(--white); }
+
+  .faq-question.active { background: var(--white); }
+
+  .faq-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    background: var(--gold-pale);
+    border: 1px solid #E4D09A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--gold);
+    font-weight: 300;
+    transition: transform 0.3s;
+    line-height: 1;
+  }
+
+  .faq-question.active .faq-icon { transform: rotate(45deg); }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    padding: 0 28px;
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  .faq-answer.open {
+    max-height: 200px;
+    padding-bottom: 22px;
+  }
+
+  /* BANNER CTA */
+  .banner-cta {
+    background: var(--navy);
+    padding: 64px 5%;
+  }
+
+  .banner-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .banner-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    color: var(--white);
+    line-height: 1.25;
+  }
+
+  .banner-cta h2 em { font-style: italic; color: var(--gold-light); }
+
+  .banner-cta .btn-primary { background: var(--gold); font-size: 16px; padding: 16px 32px; }
+
+  /* FORM SECTION */
+  #formulario { background: var(--cream-mid); }
+
+  .form-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .form-benefits { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+
+  .form-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .benefit-check {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: var(--green-bg);
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10l4.5 4.5 8-8.5' stroke='%231A6B47' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .form-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 44px;
+    border: 1px solid #E8DFC8;
+    box-shadow: 0 4px 40px rgba(14,27,46,0.08);
+  }
+
+  .form-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .form-card-sub {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 28px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #D8D0BC;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--navy);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--gold);
+    background: var(--white);
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 15px;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+
+  .form-submit:hover { background: #B8923E; }
+
+  .form-privacy {
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .form-success.visible { display: block; }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--green-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 24px;
+  }
+
+  .form-success h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .form-success p { font-size: 14px; color: var(--text-mid); margin-bottom: 24px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.6);
+    padding: 56px 5% 32px;
+  }
+
+  .footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: block;
+    text-decoration: none;
+  }
+
+  .footer-logo span { color: var(--gold-light); }
+
+  .footer-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 300px;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .footer-contact a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+
+  .footer-contact a:hover { color: var(--gold-light); }
+
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 16px;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li { margin-bottom: 10px; }
+
+  .footer-col ul a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul a:hover { color: var(--white); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 28px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 48px; }
+    .hero-card { max-width: 480px; }
+    .form-layout { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .nav-links { display: none; }
+    .nav-mobile-btn { display: flex; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 120px 5% 60px; }
+    .hero-stats { flex-wrap: wrap; gap: 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .banner-inner { flex-direction: column; }
+    .form-card { padding: 28px 20px; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
 </style>
-
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur2"></div>
-
-<!-- FLOAT WHATSAPP -->
-
-<a href="https://wa.me/5511941006383?text=Olá!%20Tenho%20interesse%20em%20crédito%20para%20minha%20empresa." class="float-wa" target="_blank" rel="noopener">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-  Falar no WhatsApp
-</a>
-
 <!-- NAV -->
-
-<nav id="nav">
-  <div class="logo">Vaalore<sup>®</sup></div>
-  <div class="nav-right">
-    <a href="mailto:contato@send.veelore.com.br" class="nav-email">contato@vaalore.com.br</a>
-    <a href="https://wa.me/5511941006383?text=Olá!%20Tenho%20interesse%20em%20crédito%20para%20minha%20empresa." class="nav-wa" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-      WhatsApp
-    </a>
-  </div>
+<nav>
+  <a href="#" class="nav-logo">Vaal<span>ore</span><sup style="font-size:9px; color:var(--gold); font-family:sans-serif;">®</sup></a>
+  <ul class="nav-links">
+    <li><a href="#solucoes">Soluções</a></li>
+    <li><a href="#duvidas">Dúvidas</a></li>
+    <li><a href="#formulario">Simular crédito</a></li>
+    <li><a href="https://wa.me/5511941006382?text=Olá!%20Tenho%20interesse%20em%20crédito%20para%20minha%20empresa." class="nav-cta">WhatsApp</a></li>
+  </ul>
+  <button class="nav-mobile-btn" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'; document.querySelector('.nav-links').style.flexDirection='column'; document.querySelector('.nav-links').style.position='absolute'; document.querySelector('.nav-links').style.top='68px'; document.querySelector('.nav-links').style.left='0'; document.querySelector('.nav-links').style.right='0'; document.querySelector('.nav-links').style.background='#FDFBF7'; document.querySelector('.nav-links').style.padding='20px 5%'; document.querySelector('.nav-links').style.borderBottom='1px solid #E8DFC8';" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
-
-<section class="hero">
-  <div class="hero-bg">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-glow2"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      <span>Crédito exclusivo para empresas · Desde o diagnóstico até o desembolso</span>
-    </div>
-    <h1>O menor custo<br>de <em>crédito</em><br>do mercado</h1>
-    <p class="hero-sub">A Vaalore é uma consultoria especializada em crédito empresarial. Estruturamos a melhor solução financeira para a sua empresa — com agilidade, discrição e as taxas mais competitivas do Brasil.</p>
-    <div class="hero-rate">
-      <div>
-        <div class="rate">0,9% a.m.</div>
-      </div>
-      <div class="rate-label">Taxa inicial<br><span class="rate-highlight">pode chegar a 0,2% a.m.</span></div>
-    </div>
-    <div class="hero-ctas">
-      <a href="#formulario" class="btn-gold">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+<section class="hero" style="padding-top:140px">
+  <div>
+    <div class="hero-badge">Consultoria especializada em crédito empresarial</div>
+    <h1>O menor custo de <em>crédito</em> do mercado</h1>
+    <p class="hero-sub">A Vaalore estrutura a melhor solução financeira para a sua empresa — com agilidade, discrição e as taxas mais competitivas do Brasil. Do diagnóstico ao desembolso.</p>
+    <div class="hero-btns">
+      <a href="#formulario" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l5 4-5 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Simular meu crédito
       </a>
-      <a href="https://wa.me/5511941006383?text=Olá!%20Quero%20saber%20mais%20sobre%20crédito%20para%20minha%20empresa." class="btn-wa" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      <a href="https://wa.me/5511941006382?text=Olá!%20Quero%20saber%20mais%20sobre%20crédito%20para%20minha%20empresa." class="btn-secondary" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C4.41 1.5 1.5 4.41 1.5 8c0 1.19.33 2.3.9 3.25L1.5 14.5l3.36-.88A6.5 6.5 0 1 0 8 1.5Z" stroke="#1A2D45" stroke-width="1.5" stroke-linejoin="round"/><path d="M5.5 7.5c.5 1 1.5 2 2.5 2.5" stroke="#1A2D45" stroke-width="1.5" stroke-linecap="round"/></svg>
         Falar agora
       </a>
     </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">0,9%</div>
+        <div class="stat-label">Taxa de entrada a.m.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">R$30mi</div>
+        <div class="stat-label">Limite máximo</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24h</div>
+        <div class="stat-label">Primeira resposta</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div class="hero-card-title">Taxa de crédito empresarial</div>
+    <div class="rate-display">
+      <div class="rate-from">A partir de</div>
+      <div class="rate-number">0,9<span class="rate-unit">%</span></div>
+      <div class="rate-note">ao mês · pode chegar a 0,2% a.m.</div>
+    </div>
+    <ul class="card-features">
+      <li>Capital de giro e expansão</li>
+      <li>Refinanciamento de dívidas</li>
+      <li>R$ 50 mil a R$ 30 milhões</li>
+      <li>Empresas acima de R$ 30k/mês</li>
+      <li>Sem consulta ao CPF nesta etapa</li>
+      <li>Resposta em até 24 horas</li>
+    </ul>
+    <a href="#formulario" class="btn-primary">Quero minha análise gratuita →</a>
   </div>
 </section>
 
-<!-- MARQUEE -->
-
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span class="marquee-item"><span class="marquee-dot"></span>Capital de Giro</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Expansão de Negócios</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Refinanciamento de Dívidas</span>
-    <span class="marquee-item"><span class="marquee-dot"></span><b>0,9% a.m.</b>&nbsp;→ até&nbsp;<b>0,2% a.m.</b></span>
-    <span class="marquee-item"><span class="marquee-dot"></span>R$ 50 mil a R$ 30 milhões</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Empresas acima de R$ 30k/mês</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Resposta em 24h</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Capital de Giro</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Expansão de Negócios</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Refinanciamento de Dívidas</span>
-    <span class="marquee-item"><span class="marquee-dot"></span><b>0,9% a.m.</b>&nbsp;→ até&nbsp;<b>0,2% a.m.</b></span>
-    <span class="marquee-item"><span class="marquee-dot"></span>R$ 50 mil a R$ 30 milhões</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Empresas acima de R$ 30k/mês</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Resposta em 24h</span>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot"></span>Taxa a partir de <strong>0,9% ao mês</strong></span>
+    <span class="ticker-item"><span class="ticker-dot"></span>De <strong>R$ 50k a R$ 30 milhões</strong> por operação</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Diagnóstico financeiro <strong>gratuito</strong></span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Resposta em <strong>até 24 horas</strong></span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sem burocracia · <strong>Sem custo inicial</strong></span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Taxa a partir de <strong>0,9% ao mês</strong></span>
+    <span class="ticker-item"><span class="ticker-dot"></span>De <strong>R$ 50k a R$ 30 milhões</strong> por operação</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Diagnóstico financeiro <strong>gratuito</strong></span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Resposta em <strong>até 24 horas</strong></span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sem burocracia · <strong>Sem custo inicial</strong></span>
   </div>
 </div>
 
-<!-- RATES -->
-
-<div class="rates-band reveal">
-  <div class="rates-inner">
-    <div class="rate-box">
-      <div class="rate-big"><sup>a partir de</sup>0,9<sub>% a.m.</sub></div>
-      <div class="rate-desc">Taxa de entrada<br>no mercado</div>
-    </div>
-    <div class="rates-div"></div>
-    <div class="rate-box">
-      <div class="rate-big" style="color:var(--green);">0,2<sub>% a.m.</sub></div>
-      <div class="rate-desc rate-highlight">Menor taxa<br>possível com estruturação</div>
-    </div>
-    <div class="rates-div"></div>
-    <div class="rate-box">
-      <div class="rate-big">30<sub>mi</sub></div>
-      <div class="rate-desc">Limite máximo<br>por operação</div>
-    </div>
-  </div>
-</div>
-
-<!-- WHAT -->
-
+<!-- SERVICES -->
 <section id="solucoes">
-  <div class="s-label reveal">O que fazemos</div>
-  <h2 class="reveal">Crédito para quem<br><em>constrói</em> de verdade</h2>
-  <div class="what-grid">
-    <div class="what-card reveal">
-      <div class="what-icon">◈</div>
-      <h3>Capital de Giro</h3>
-      <p>Reforce o caixa sem comprometer o crescimento. Estruturamos linhas de crédito com as menores taxas do mercado para manter sua operação fluindo — mesmo nos momentos de maior pressão.</p>
-      <span class="what-tag">R$ 50k – R$ 30mi</span>
-    </div>
-    <div class="what-card reveal">
-      <div class="what-icon">△</div>
-      <h3>Expansão de Negócios</h3>
-      <p>Nova unidade, novo equipamento ou nova vertente de receita? Conectamos sua empresa às melhores estruturas de financiamento para crescer sem diluir equity desnecessariamente.</p>
-      <span class="what-tag">Longo prazo · Taxas fixas</span>
-    </div>
-    <div class="what-card reveal">
-      <div class="what-icon">○</div>
-      <h3>Refinanciamento de Dívidas</h3>
-      <p>Dívidas caras consomem margem e freiam o crescimento. Reestruturamos seu passivo com inteligência — unificando, alongando e reduzindo o custo financeiro total da sua empresa.</p>
-      <span class="what-tag">Redução de custos</span>
-    </div>
-    <div class="what-card reveal">
-      <div class="what-icon">⬡</div>
-      <h3>Consultoria de Crédito</h3>
-      <p>Antes de qualquer operação, entendemos o seu negócio. Mapeamos as melhores fontes de capital disponíveis no mercado e estruturamos a proposta ideal para o seu perfil e momento.</p>
-      <span class="what-tag">Diagnóstico gratuito</span>
+  <div class="section-inner">
+    <p class="section-label reveal">O que fazemos</p>
+    <h2 class="section-title reveal">Crédito para quem <em>constrói</em> de verdade</h2>
+    <p class="section-sub reveal">Estruturamos soluções sob medida para empresas que buscam crescer de forma inteligente e sustentável.</p>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">💼</div>
+        <h3>Capital de Giro</h3>
+        <p>Reforce o caixa sem comprometer o crescimento. Estruturamos linhas com as menores taxas do mercado para manter sua operação fluindo — mesmo nos momentos de maior pressão.</p>
+        <span class="service-tag">R$ 50k – R$ 30mi</span>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">🏗</div>
+        <h3>Expansão de Negócios</h3>
+        <p>Nova unidade, novo equipamento ou nova vertente de receita? Conectamos sua empresa às melhores estruturas de financiamento para crescer sem diluir equity desnecessariamente.</p>
+        <span class="service-tag">Longo prazo · Taxas fixas</span>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">🔄</div>
+        <h3>Refinanciamento de Dívidas</h3>
+        <p>Dívidas caras consomem margem e freiam o crescimento. Reestruturamos seu passivo com inteligência — unificando, alongando e reduzindo o custo financeiro total.</p>
+        <span class="service-tag">Redução de custos</span>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">🔍</div>
+        <h3>Consultoria de Crédito</h3>
+        <p>Antes de qualquer operação, entendemos o seu negócio. Mapeamos as melhores fontes de capital disponíveis e estruturamos a proposta ideal para o seu perfil e momento.</p>
+        <span class="service-tag">Diagnóstico gratuito</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA BAND 1 -->
-
-<div class="cta-band reveal">
-  <h3>Sua empresa fatura acima de<br><em>R$ 30 mil por mês?</em></h3>
-  <a href="#formulario" class="btn-gold">
-    Quero meu crédito
-    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-  </a>
+<!-- BANNER CTA -->
+<div class="banner-cta">
+  <div class="banner-inner">
+    <h2>Sua empresa fatura acima de <em>R$ 30 mil por mês?</em></h2>
+    <a href="#formulario" class="btn-primary">Quero meu crédito →</a>
+  </div>
 </div>
 
-<!-- WHO -->
-
-<section class="who-section" id="numeros">
-  <div class="s-label reveal" style="padding:0 0 18px;">Para quem é</div>
-  <div class="who-grid">
-    <div class="who-card reveal">
-      <div class="who-num">R$30k<span>+</span></div>
-      <div class="who-label">Faturamento mensal<br>mínimo da empresa</div>
-    </div>
-    <div class="who-card reveal">
-      <div class="who-num">R$50k<span>–</span>30mi</div>
-      <div class="who-label">Volume de crédito<br>por operação</div>
-    </div>
-    <div class="who-card reveal">
-      <div class="who-num">24<span>h</span></div>
-      <div class="who-label">Prazo para<br>primeira resposta</div>
-    </div>
-  </div>
-</section>
-
-<!-- OBJECTIONS -->
-
+<!-- FAQ -->
 <section id="duvidas">
-  <div class="s-label reveal">Quebra de objeções</div>
-  <h2 class="reveal">Pensamentos que<br><em>todo empresário</em> tem</h2>
-  <div class="obj-grid">
-    <div class="obj reveal">
-      <div class="obj-num">01</div>
-      <div class="obj-body">
-        <div class="obj-q">"Já tentei crédito antes e foi burocrático demais."</div>
-        <div class="obj-a">A Vaalore não é um banco. Somos uma consultoria que <strong>trabalha para você</strong>, não para a instituição financeira. Fazemos o diagnóstico, montamos o dossiê e submetemos nas fontes certas — você só aparece para assinar. A nossa eficiência é o nosso produto.</div>
+  <div class="section-inner">
+    <p class="section-label reveal">Dúvidas frequentes</p>
+    <h2 class="section-title reveal">Pensamentos que <em>todo empresário</em> tem</h2>
+    <p class="section-sub reveal">Respondemos as principais dúvidas de quem está considerando crédito para sua empresa.</p>
+
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          "Já tentei crédito antes e foi burocrático demais."
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">A Vaalore não é um banco. Somos uma consultoria que trabalha para você, não para a instituição financeira. Fazemos o diagnóstico, montamos o dossiê e submetemos nas fontes certas — você só aparece para assinar. A nossa eficiência é o nosso produto.</div>
       </div>
-    </div>
-    <div class="obj reveal">
-      <div class="obj-num">02</div>
-      <div class="obj-body">
-        <div class="obj-q">"As taxas que me ofereceram são altíssimas."</div>
-        <div class="obj-a">A maioria das empresas aceita a primeira taxa que aparece. Nós não fazemos isso. Estruturamos sua operação para acessar linhas que começam em <strong>0,9% ao mês</strong> e, dependendo do perfil, podem chegar a <strong>0,2% ao mês</strong> — valores que bancos raramente apresentam diretamente.</div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          "As taxas que me ofereceram são altíssimas."
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">A maioria das empresas aceita a primeira taxa que aparece. Nós não fazemos isso. Estruturamos sua operação para acessar linhas que começam em 0,9% ao mês e, dependendo do perfil, podem chegar a 0,2% ao mês — valores que bancos raramente apresentam diretamente.</div>
       </div>
-    </div>
-    <div class="obj reveal">
-      <div class="obj-num">03</div>
-      <div class="obj-body">
-        <div class="obj-q">"Minha empresa não está com os documentos 100% em dia."</div>
-        <div class="obj-a">Isso é mais comum do que parece — e não necessariamente um impedimento. Na consultoria inicial, mapeamos exatamente o que precisa ser ajustado e o que já está aprovável agora. Muitos clientes conseguem crédito <strong>sem precisar regularizar tudo antes</strong>.</div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          "Minha empresa não está com os documentos 100% em dia."
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Isso é mais comum do que parece — e não necessariamente um impedimento. Na consultoria inicial, mapeamos exatamente o que precisa ser ajustado e o que já está aprovável agora. Muitos clientes conseguem crédito sem precisar regularizar tudo antes.</div>
       </div>
-    </div>
-    <div class="obj reveal">
-      <div class="obj-num">04</div>
-      <div class="obj-body">
-        <div class="obj-q">"Não sei se minha empresa tem perfil para esse crédito."</div>
-        <div class="obj-a">Atendemos empresas com faturamento a partir de R$ 30 mil por mês — de pequenas operações familiares a grupos com múltiplos CNPJs. O perfil ideal <strong>é avaliado individualmente</strong>, e nossa consulta inicial é gratuita e sem compromisso.</div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          "Não sei se minha empresa tem perfil para esse crédito."
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Atendemos empresas com faturamento a partir de R$ 30 mil por mês — de pequenas operações familiares a grupos com múltiplos CNPJs. O perfil ideal é avaliado individualmente, e nossa consulta inicial é gratuita e sem compromisso.</div>
       </div>
-    </div>
-    <div class="obj reveal">
-      <div class="obj-num">05</div>
-      <div class="obj-body">
-        <div class="obj-q">"Tenho medo de comprometer o caixa com mais uma dívida."</div>
-        <div class="obj-a">Essa é exatamente a pergunta certa. Crédito bem estruturado <strong>libera caixa</strong>, não aprisiona. Nossa consultoria inclui análise do impacto da operação no fluxo de caixa — só avançamos se fizer sentido real para o seu negócio.</div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          "Tenho medo de comprometer o caixa com mais uma dívida."
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Essa é exatamente a pergunta certa. Crédito bem estruturado libera caixa, não aprisiona. Nossa consultoria inclui análise do impacto da operação no fluxo de caixa — só avançamos se fizer sentido real para o seu negócio.</div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- CTA BAND 2 -->
-
-<div class="cta-band reveal" style="margin-bottom:0;">
-  <h3>Crédito de <em>R$ 50 mil a R$ 30 milhões</em><br>para sua empresa</h3>
-  <a href="https://wa.me/5511941006383?text=Olá!%20Quero%20simular%20um%20crédito%20para%20minha%20empresa." class="btn-wa" target="_blank" rel="noopener" style="white-space:nowrap;padding:16px 28px;">
-    <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-    Falar com especialista
-  </a>
-</div>
 
 <!-- FORM -->
+<section id="formulario">
+  <div class="section-inner">
+    <div class="form-layout">
+      <div>
+        <p class="section-label reveal">Primeiro passo</p>
+        <h2 class="section-title reveal">Vamos entender o que sua empresa <em>precisa</em></h2>
+        <p class="section-sub reveal" style="margin-bottom:0">Preencha o formulário e um especialista da Vaalore entra em contato em até 24 horas — sem compromisso, sem burocracia, sem custo.</p>
 
-<section class="form-section" id="formulario">
-  <div class="form-wrap">
-    <div class="form-left reveal">
-      <div class="s-label">Primeiro passo</div>
-      <h2>Vamos entender<br>o que sua empresa<br><em>precisa</em></h2>
-      <p>Preencha o formulário ao lado e um especialista da Vaalore entra em contato em até 24 horas — sem compromisso, sem burocracia, sem custo.</p>
-      <div class="promise">
-        <div class="promise-item">Diagnóstico financeiro gratuito</div>
-        <div class="promise-item">Taxas a partir de 0,9% ao mês</div>
-        <div class="promise-item">Aprovação em até 72h úteis</div>
-        <div class="promise-item">De R$ 50 mil a R$ 30 milhões</div>
-        <div class="promise-item">Sem consulta ao CPF nesta etapa</div>
+        <ul class="form-benefits reveal">
+          <li><span class="benefit-check"></span>Diagnóstico financeiro gratuito</li>
+          <li><span class="benefit-check"></span>Taxas a partir de 0,9% ao mês</li>
+          <li><span class="benefit-check"></span>Aprovação em até 72h úteis</li>
+          <li><span class="benefit-check"></span>De R$ 50 mil a R$ 30 milhões</li>
+          <li><span class="benefit-check"></span>Sem consulta ao CPF nesta etapa</li>
+        </ul>
       </div>
-    </div>
-    <div class="form-box reveal">
-      <div id="form-content">
+
+      <div class="form-card reveal">
         <h3>Solicitar análise de crédito</h3>
-        <p class="form-sub">Preencha abaixo · Retorno em até 24h</p>
-        <div class="field">
-          <label>Seu nome</label>
-          <input type="text" id="f-nome" placeholder="Como podemos te chamar?" autocomplete="off">
+        <p class="form-card-sub">Preencha abaixo · Retorno em até 24h</p>
+
+        <div id="form-content">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Seu nome</label>
+              <input type="text" id="nome" placeholder="João Silva">
+            </div>
+            <div class="form-group">
+              <label>Nome da empresa</label>
+              <input type="text" id="empresa" placeholder="Empresa Ltda.">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>E-mail corporativo</label>
+            <input type="email" id="email" placeholder="joao@empresa.com.br">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Faturamento mensal</label>
+              <select id="faturamento">
+                <option value="" disabled selected>Selecione</option>
+                <option>R$ 30k – R$ 100k</option>
+                <option>R$ 100k – R$ 500k</option>
+                <option>R$ 500k – R$ 2mi</option>
+                <option>Acima de R$ 2mi</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Necessidade de crédito</label>
+              <select id="necessidade">
+                <option value="" disabled selected>Qual é o objetivo?</option>
+                <option>Capital de Giro</option>
+                <option>Expansão de Negócios</option>
+                <option>Refinanciamento de Dívidas</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <button class="form-submit" onclick="submitForm()">Quero minha análise gratuita →</button>
+          <p class="form-privacy">🔒 Seus dados estão seguros e são usados apenas para contato</p>
         </div>
-        <div class="field">
-          <label>Nome da empresa</label>
-          <input type="text" id="f-empresa" placeholder="Razão social ou nome fantasia" autocomplete="off">
+
+        <div class="form-success" id="form-success">
+          <div class="success-icon">✅</div>
+          <h4>Recebemos sua solicitação!</h4>
+          <p>Em até 24 horas um especialista da Vaalore entrará em contato. Se preferir falar agora, é só nos chamar no WhatsApp.</p>
+          <a href="https://wa.me/5511941006382?text=Olá!%20Acabei%20de%20preencher%20o%20formulário%20no%20site." class="btn-primary" target="_blank" style="display:inline-flex">Chamar no WhatsApp →</a>
         </div>
-        <div class="field">
-          <label>E-mail corporativo</label>
-          <input type="email" id="f-email" placeholder="seu@empresa.com.br" autocomplete="off">
-        </div>
-        <div class="field">
-          <label>Faturamento mensal estimado</label>
-          <select id="f-fat">
-            <option value="" disabled selected>Selecione uma faixa</option>
-            <option>R$ 30k – R$ 100k</option>
-            <option>R$ 100k – R$ 500k</option>
-            <option>R$ 500k – R$ 2mi</option>
-            <option>Acima de R$ 2mi</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Necessidade de crédito</label>
-          <select id="f-tipo">
-            <option value="" disabled selected>Qual é o objetivo?</option>
-            <option>Capital de Giro</option>
-            <option>Expansão de Negócios</option>
-            <option>Refinanciamento de Dívidas</option>
-            <option>Outro</option>
-          </select>
-        </div>
-        <button class="form-btn" onclick="sendForm()">Quero minha análise gratuita →</button>
-        <p class="form-note">🔒 Seus dados estão seguros. Utilizamos suas informações apenas para contato comercial e análise de crédito.</p>
-      </div>
-      <div class="form-success" id="form-success">
-        <div class="check">✅</div>
-        <h4>Recebemos sua solicitação!</h4>
-        <p>Em até 24 horas um especialista da Vaalore entrará em contato pelo e-mail informado.<br><br>Se preferir falar agora, é só nos chamar no WhatsApp.</p>
-        <br>
-        <a href="https://wa.me/5511941006383?text=Olá!%20Acabei%20de%20preencher%20o%20formulário%20no%20site." class="btn-wa" target="_blank" rel="noopener" style="display:inline-flex;margin-top:8px;">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.526 5.847L.057 23.571a.5.5 0 00.61.641l5.885-1.543A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.37l-.359-.213-3.714.974.991-3.617-.234-.372A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-          Chamar no WhatsApp
-        </a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
-
 <footer>
-  <div class="footer-top">
+  <div class="footer-grid">
     <div>
-      <div class="footer-logo">Vaalore</div>
-      <div class="footer-desc">Consultoria especializada em crédito empresarial. Menor custo de capital para empresas que faturam acima de R$ 30 mil por mês.</div>
+      <a href="#" class="footer-logo">Vaal<span>ore</span><sup style="font-size:9px">®</sup></a>
+      <p class="footer-desc">Consultoria especializada em crédito empresarial. Menor custo de capital para empresas que faturam acima de R$ 30 mil por mês.</p>
+      <div class="footer-contact">
+        <a href="mailto:contato@vaalore.com.br">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 4l6 4 6-4" stroke="currentColor" stroke-width="1.2"/></svg>
+          contato@vaalore.com.br
+        </a>
+        <a href="https://wa.me/5511941006382" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C3.69 1 1 3.69 1 7c0 1.05.29 2.03.79 2.86L1 13l3.22-.77A5.98 5.98 0 0 0 7 13c3.31 0 6-2.69 6-6S10.31 1 7 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          (11) 94100-6382
+        </a>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="#solucoes">Soluções</a>
-      <a href="#duvidas">Dúvidas</a>
-      <a href="#formulario">Simular crédito</a>
-      <a href="mailto:contato@send.veelore.com.br">E-mail</a>
-      <a href="https://wa.me/5511941006383" target="_blank">WhatsApp</a>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="#solucoes">Soluções</a></li>
+        <li><a href="#duvidas">Dúvidas</a></li>
+        <li><a href="#formulario">Simular crédito</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@vaalore.com.br">E-mail</a></li>
+        <li><a href="https://wa.me/5511941006382" target="_blank">WhatsApp</a></li>
+      </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-privacy">Seus dados estão seguros. Utilizamos suas informações apenas para contato comercial e análise de crédito.</div>
-    <div class="footer-legal">© 2026 Vaalore · Todos os direitos reservados</div>
+    <span>© 2026 Vaalore · Todos os direitos reservados</span>
+    <span>Seus dados estão seguros e protegidos</span>
   </div>
 </footer>
 
 <script>
-// Cursor
-const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-});
-(function loop(){rx+=(mx-rx).13;ry+=(my-ry).13;cur2.style.left=rx+'px';cur2.style.top=ry+'px';requestAnimationFrame(loop);})();
-
-// Nav
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
-
-// Reveal
-const revealEls=document.querySelectorAll('.reveal');
-new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*70);} 
-  });
-},{threshold:.08}).observe||revealEls.forEach(el=>{
-  new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){entries[0].target.classList.add('on');}
-  },{threshold:.08}).observe(el);
-});
-revealEls.forEach(el=>{
-  new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){entries[0].target.classList.add('on');}
-  },{threshold:.08}).observe(el);
-});
-
-// Form
-function sendForm(){
-  const nome=document.getElementById('f-nome').value.trim();
-  const empresa=document.getElementById('f-empresa').value.trim();
-  const email=document.getElementById('f-email').value.trim();
-  const fat=document.getElementById('f-fat').value;
-  const tipo=document.getElementById('f-tipo').value;
-  if(!nome||!empresa||!email||!fat||!tipo){
-    alert('Por favor, preencha todos os campos.');return;
-  }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    alert('Por favor, insira um e-mail válido.');return;
-  }
-  const subject=encodeURIComponent('Nova solicitação de crédito — Vaalore');
-  const body=encodeURIComponent(
-    Nova solicitação de análise de crédito:\n\nNome: ${nome}\nEmpresa: ${empresa}\nE-mail: ${email}\nFaturamento: ${fat}\nNecessidade: ${tipo}\n\nEnviado via site vaalore.com.br
-  );
-  window.location.href=mailto:contato@send.veelore.com.br?subject=${subject}&body=${body};
-  setTimeout(()=>{
-    document.getElementById('form-content').style.display='none';
-    document.getElementById('form-success').style.display='block';
-  },800);
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-question.active').forEach(b => b.classList.remove('active'));
+  if (!isOpen) { answer.classList.add('open'); btn.classList.add('active'); }
 }
-</script>
 
+function submitForm() {
+  const nome = document.getElementById('nome').value.trim();
+  const empresa = document.getElementById('empresa').value.trim();
+  const email = document.getElementById('email').value.trim();
+  if (!nome || !empresa || !email) { alert('Por favor, preencha nome, empresa e e-mail.'); return; }
+  document.getElementById('form-content').style.display = 'none';
+  document.getElementById('form-success').classList.add('visible');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
